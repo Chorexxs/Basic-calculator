@@ -7,6 +7,10 @@ from player import Player
 from debug import debug
 from support import *
 from random import choice
+<<<<<<< Updated upstream
+=======
+from weapon import Weapon
+>>>>>>> Stashed changes
 
 
 class Level:
@@ -17,6 +21,12 @@ class Level:
         self.visible_sprites = YSortCameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
 
+<<<<<<< Updated upstream
+=======
+        # attack sprite
+        self.current_attack = None
+
+>>>>>>> Stashed changes
         # Sprite setup
         self.create_map()
 
@@ -24,11 +34,20 @@ class Level:
         layouts = {
             "boundary": import_csv_layout("c:/Users/Usuario/Documents/Python/Python game (zelda)/Map/map_FloorBlocks.csv"),
             "grass": import_csv_layout("c:/Users/Usuario/Documents/Python/Python game (zelda)/Map/map_Grass.csv"),
+<<<<<<< Updated upstream
             # "object": import_csv_layout("c:/Users/Usuario/Documents/Python/Python game (zelda)/Map/map_Objects.scv"),
         }
 
         graphics = {
             "grass": import_folder("c:/Users/Usuario/Documents/Python/Python game (zelda)/Graphics/grass")
+=======
+            "object": import_csv_layout("c:/Users/Usuario/Documents/Python/Python game (zelda)/Map/map_Objects.csv"),
+        }
+
+        graphics = {
+            "grass": import_folder("c:/Users/Usuario/Documents/Python/Python game (zelda)/Graphics/grass"),
+            "objects": import_folder("c:/Users/Usuario/Documents/Python/Python game (zelda)/Graphics/objects")
+>>>>>>> Stashed changes
         }
 
         for style, layouts in layouts.items():
@@ -45,6 +64,7 @@ class Level:
                                  self.obstacle_sprites], "grass", random_grass_image)
 
                         if style == "object":
+<<<<<<< Updated upstream
                             # create object tile
                             pass
         #          if col == "x":
@@ -54,12 +74,33 @@ class Level:
         #                  (x, y), [self.visible_sprites], self.obstacle_sprites)
         self.player = Player(
             (2000, 1430), [self.visible_sprites], self.obstacle_sprites)
+=======
+                            surface = graphics["objects"][int(col)]
+                            Tile((x, y), [self.visible_sprites,
+                                 self.obstacle_sprites], "object", surface)
+
+        self.player = Player(
+            (2000, 1410), [self.visible_sprites], self.obstacle_sprites, self.create_attack, self.destroy_attack)
+
+    def create_attack(self):
+        self.current_attack = Weapon(self.player, [self.visible_sprites])
+
+    def destroy_attack(self):
+        if self.current_attack:
+            self.current_attack.kill()
+        self.current_attack = None
+>>>>>>> Stashed changes
 
     def run(self):
         # Update and draw the game
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+<<<<<<< Updated upstream
         debug(self.player.direction)
+=======
+       # debug(self.player.direction)
+        debug(self.player.status)
+>>>>>>> Stashed changes
 
 
 class YSortCameraGroup(pygame.sprite.Group):
